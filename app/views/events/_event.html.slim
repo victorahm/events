@@ -1,0 +1,29 @@
+div id="#{dom_id event}"
+  p
+    strong Name:
+    =< event.name
+  p
+    strong Venue:
+    =< event.venue
+  p
+    strong Address:
+    =< event.address
+  p
+    strong City:
+    =< event.city
+  p
+    strong State:
+    =< event.state
+  p
+    strong Country:
+    =< event.country
+  p
+    strong Event at:
+    =< l event.event_at
+  p
+    strong Description:
+    =< event.description
+  p
+    strong Image:
+    - if event.image.attached?
+      = image_tag event.image

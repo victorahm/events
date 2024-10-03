@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_02_065847) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_02_073816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -51,6 +51,23 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_02_065847) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.string "venue", null: false
+    t.string "address"
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "country", null: false
+    t.datetime "event_at", null: false
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["latitude", "longitude"], name: "index_events_on_latitude_and_longitude"
+    t.index ["slug"], name: "index_events_on_slug", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
